@@ -1,0 +1,2 @@
+# SPC Reader
+The SPC Reader is a Go implementation of an SPC reader/player. The goal is to create an audio player that can be used to play back the SPC file's music, sounding just like it did on the original SNES. To do so, I need to parse the SPC file and emulate the Sony SPC700 processor in order to play back audio properly. To create the GUI, I will use Qt6 Widgets/QML. After completing this, I plan on creating an Android application to listen to SPC files on the go.
