@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/binary"
 	"log"
 	"mike-a/spc-reader/models"
 	"os"
@@ -21,8 +22,26 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	pp.Printf("%+v\n", encodedSpc)
-	printEncodedSPCHeader(encodedSpc)
+	// pp.Printf("%+v\n", encodedSpc)
+	// printEncodedSPCHeader(encodedSpc)
+
+	// Emulate SPC700 CPU
+	// Populate CPU with registers and memory
+	spcProcessor := models.SPCProcessor{
+		PC:      binary.LittleEndian.Uint16(encodedSpc.PC[:]),
+		A:       encodedSpc.A,
+		X:       encodedSpc.X,
+		Y:       encodedSpc.Y,
+		PSW:     encodedSpc.PSW,
+		SP:      encodedSpc.SP,
+		Ram64KB: encodedSpc.Ram64KB,
+	}
+
+	pp.Printf("%+v\n", spcProcessor)
+	// fmt.Printf("% 0x \n", spcProcessor.Ram64KB[:])
+
+	// instructionSet := models.BuildInstructionArray()
+	// pp.Printf("%+v\n", instructionSet)
 }
 
 func printEncodedSPCHeader(encodedSpc *models.SPCFile) {
